@@ -50,7 +50,7 @@ public class Main extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         gUIInicio1 = new vista.GUIInicio();
-        jPanelFormTest1 = new vista.JPanelFormTest();
+        proveedor1 = new vista.Proveedor();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -130,7 +130,19 @@ public class Main extends javax.swing.JFrame {
 
         jTabbedPane2.setTabPlacement(javax.swing.JTabbedPane.LEFT);
         jTabbedPane2.addTab("Inicio", gUIInicio1);
-        jTabbedPane2.addTab("Ejemplo", jPanelFormTest1);
+
+        javax.swing.GroupLayout proveedor1Layout = new javax.swing.GroupLayout(proveedor1);
+        proveedor1.setLayout(proveedor1Layout);
+        proveedor1Layout.setHorizontalGroup(
+            proveedor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 754, Short.MAX_VALUE)
+        );
+        proveedor1Layout.setVerticalGroup(
+            proveedor1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 526, Short.MAX_VALUE)
+        );
+
+        jTabbedPane2.addTab("Proveedor", proveedor1);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -268,7 +280,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private vista.GUIInicio gUIInicio1;
     private javax.swing.JMenu helpMenu;
-    private vista.JPanelFormTest jPanelFormTest1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel labelLogin;
@@ -277,6 +288,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem pasteMenuItem;
+    private vista.Proveedor proveedor1;
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
