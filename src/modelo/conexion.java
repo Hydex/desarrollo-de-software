@@ -15,7 +15,7 @@ public class conexion
 {
     public String bd = "MMS";
     public String login = "root";
-    public String password = "123456a";
+    public String password = "123456aaa";
     public String url = "jdbc:mysql://localhost/"+bd;
     public static conexion conect = new conexion();
     public static Statement st= conect.conectar();
@@ -46,7 +46,7 @@ catch(SQLException ex) {
 
 public void terminarConexion()
 {
- 
+        System.out.println("Fin de conexion");
   
  }
 }
