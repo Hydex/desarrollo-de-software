@@ -70,6 +70,23 @@ public class PedidoLogic extends SistemaLogico{
             return ped;
         }
     }
+    public ArrayList<Pedido> getPedidoFecha(String fecha){
+        String sql="SELECT * FROM Pedido where fecha='"+fecha+"';";
+        ArrayList<Pedido> listpedidos=new ArrayList<Pedido>();
+        bd.consulta(sql);
+        ResultSet rpta=bd.getRespuesta();
+        try {
+            while(rpta.next()){
+                //int ideped, String nomPed, int nuroMesPed, int ideEmp, int estado,String fecha
+                Pedido pedido=new Pedido(rpta.getInt("idePed"),rpta.getString("nomPed"),rpta.getInt("nroMesPed"),rpta.getInt("ideEmp"),rpta.getInt("estado"),
+                        rpta.getString("fecha"));
+                listpedidos.add(pedido);
+            }
+            return listpedidos;
+        } catch (SQLException ex) {
+            return listpedidos;
+        }
+    }
     public void setPedido(Pedido pedido){
         this.pedido=pedido;
     }

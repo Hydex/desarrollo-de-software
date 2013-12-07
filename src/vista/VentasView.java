@@ -6,6 +6,7 @@ package vista;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
@@ -45,6 +46,11 @@ public class VentasView extends javax.swing.JPanel {
         iniButtons();
         Date ahora = new Date();
         dateChooser.setDate(ahora);
+        
+        Date dt=dateChooser.getDate();
+        SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+        String currentTime = sdf.format(dt);
+        iniTabla(currentTime);
     }
 
     /**
@@ -155,14 +161,14 @@ public class VentasView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "", "Orden", "Num. Pedido", "Cliente", "Estado"
+                "", "Num. Pedido", "Cliente", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -344,6 +350,21 @@ public class VentasView extends javax.swing.JPanel {
         editButton.setIcon(iconos[2]);
         sellButton.setIcon(iconos[3]);
     }
+    private void iniTabla(String fecha){
+        ArrayList<Pedido> listapedido=pedidologic.getPedidoFecha(fecha);
+        DefaultTableModel temp =(DefaultTableModel) pedidoTable.getModel();
+        
+        for(Pedido pedido: listapedido){
+            String estado;
+            if(pedido.getEstado()==0)
+                estado="pendiente";
+            else estado="realizado";
+            Object temps[]={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
+            temp.addRow(temps);
+        }
+        pedidoTable.setModel(temp);
+        
+    }
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         
         apedv=new AddPedidoView();
@@ -370,7 +391,11 @@ public class VentasView extends javax.swing.JPanel {
         if(apedv.cerrar)return;
         Pedido pedido=pedidologic.getUltimoPedido();
         DefaultTableModel temp =(DefaultTableModel) pedidoTable.getModel();
-        Object[] fila={new Boolean(false),count,pedido.getIdeped(),pedido.getNomPed(),pedido.getEstado()};
+        String estado;
+        if(pedido.getEstado()==0)
+            estado="pendiente";
+        else estado="realizado";
+        Object[] fila={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
         temp.addRow(fila);
         pedidoTable.setModel(temp);
         count++;
@@ -399,9 +424,10 @@ public class VentasView extends javax.swing.JPanel {
         if(row==-1)
             avanzar=false;
         else{
-            int idePed=(Integer)model.getValueAt(row,2);
+            int idePed=(Integer)model.getValueAt(row,1);
             apedv=new AddPedidoView();
-            apedv.setEmpleado(empleado);  
+            apedv.setEmpleado(empleado); 
+            apedv.isUpdate=true;
             Pedido pedidoa=pedidologic.getPedido(idePed);
             ArrayList<ItemPedido> listitems=pedidologic.getDetallePedido(idePed);
             apedv.actualizarTablaPedido(listitems,pedidoa.getNomPed(),String.valueOf(pedidoa.getNuroMesPed()));
@@ -411,7 +437,6 @@ public class VentasView extends javax.swing.JPanel {
             frameNewPedido.setSize(780,500);
             frame=(JFrame)SwingUtilities.getAncestorOfClass(JFrame.class,this);
             frame.setEnabled(false);
-
             frameNewPedido.addWindowListener(new WindowAdapter(){
                     public void windowClosing(WindowEvent we){
                         frame.setEnabled(true);

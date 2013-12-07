@@ -38,6 +38,7 @@ public class AddPedidoView extends javax.swing.JPanel {
     PedidoLogic pedidologic;
     Empleado empleado =new Empleado(1);
     public boolean cerrar=false;
+    public boolean isUpdate=false;
     public AddPedidoView() {
         pedidologic=new PedidoLogic();
         initComponents();
@@ -445,24 +446,29 @@ public class AddPedidoView extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
-        java.util.Date dt = new java.util.Date();
-        java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd");
-        String currentTime = sdf.format(dt);
-        Pedido pedido=new Pedido(clienteText.getText(),Integer.parseInt(editMesa.getText()),
-                Integer.parseInt(codUserLabel.getText()),0,currentTime);
-        
-        pedidologic.setPedido(pedido);
-        pedidologic.guardarBD();
-        pedido=null;
-        pedido=pedidologic.getUltimoPedido();
-        System.out.println("Este es el id de empleado: "+pedido.getIdeEmp());
-        ArrayList<ItemPedido> itemsp=getListItemPedidos();
-        for(ItemPedido item: itemsp){
-            pedidologic.insertarDetalle(pedido.getIdeped(), item);
+        if(isUpdate){
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String currentTime = sdf.format(dt);
+            Pedido pedido=new Pedido(clienteText.getText(),Integer.parseInt(editMesa.getText()),
+                    Integer.parseInt(codUserLabel.getText()),0,currentTime);
+
+            pedidologic.setPedido(pedido);
+            pedidologic.guardarBD();
+            pedido=null;
+            pedido=pedidologic.getUltimoPedido();
+            System.out.println("Este es el id de empleado: "+pedido.getIdeEmp());
+            ArrayList<ItemPedido> itemsp=getListItemPedidos();
+            for(ItemPedido item: itemsp){
+                pedidologic.insertarDetalle(pedido.getIdeped(), item);
+            }
+            cerrar=false;
+            JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
+            frame.getWindowListeners()[0].windowClosing(null);//
         }
-        cerrar=false;
-        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
-        frame.getWindowListeners()[0].windowClosing(null);//
+        else{
+            
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
