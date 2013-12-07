@@ -37,8 +37,8 @@ public class AddPedidoView extends javax.swing.JPanel {
     AddProductView apv;
     PedidoLogic pedidologic;
     Empleado empleado =new Empleado(1);
-    public boolean cerrar=false;
     public boolean isUpdate=false;
+    public boolean presionButtonSave;
     public AddPedidoView() {
         pedidologic=new PedidoLogic();
         initComponents();
@@ -430,7 +430,9 @@ public class AddPedidoView extends javax.swing.JPanel {
         newframeProduct.addWindowListener(new WindowAdapter(){
                 public void windowClosing(WindowEvent we){
                     frame.setVisible(true);
-                    actualizarTabla();
+                    if(apv.presionButtonSave){
+                        actualizarTabla();
+                    }
                     newframeProduct.dispose();
                 }
         });
@@ -446,7 +448,8 @@ public class AddPedidoView extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
-        if(isUpdate){
+        presionButtonSave=true;
+        if(!isUpdate){
             java.util.Date dt = new java.util.Date();
             java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(dt);
@@ -462,7 +465,6 @@ public class AddPedidoView extends javax.swing.JPanel {
             for(ItemPedido item: itemsp){
                 pedidologic.insertarDetalle(pedido.getIdeped(), item);
             }
-            cerrar=false;
             JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
             frame.getWindowListeners()[0].windowClosing(null);//
         }
@@ -473,7 +475,6 @@ public class AddPedidoView extends javax.swing.JPanel {
 
     private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
         // TODO add your handling code here:
-        cerrar=true;
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
         frame.getWindowListeners()[0].windowClosing(null);//
     }//GEN-LAST:event_salirButtonActionPerformed
@@ -483,7 +484,6 @@ public class AddPedidoView extends javax.swing.JPanel {
     }
     //public Pedido getPedido(){}
     public void actualizarTabla(){
-        if(apv.cerrar)return;
         ArrayList<Item> listitem=apv.getListaItems();
         CustomTableModel temp =(CustomTableModel) pedidoTable.getModel();
         for(Item item:listitem){

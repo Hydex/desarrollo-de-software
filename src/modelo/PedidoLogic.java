@@ -71,7 +71,7 @@ public class PedidoLogic extends SistemaLogico{
         }
     }
     public ArrayList<Pedido> getPedidoFecha(String fecha){
-        String sql="SELECT * FROM Pedido where fecHorPed like='"+fecha+"%';";
+        String sql="SELECT * FROM Pedido where fecHorPed like '"+fecha+"%';";
         ArrayList<Pedido> listpedidos=new ArrayList<Pedido>();
         bd.consulta(sql);
         ResultSet rpta=bd.getRespuesta();

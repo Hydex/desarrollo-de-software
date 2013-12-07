@@ -31,7 +31,7 @@ public class AddProductView extends javax.swing.JPanel {
     TextAutoCompleter textAutoAcompleter;
     String texto;
     ArrayList<Item>listaitems=new ArrayList<Item>();
-    public boolean cerrar=false;
+    public boolean presionButtonSave;
     Empleado empleado;
     public AddProductView() {
         initComponents();
@@ -334,7 +334,6 @@ public class AddProductView extends javax.swing.JPanel {
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
-        cerrar=true;
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
         frame.getWindowListeners()[0].windowClosing(null);
     }//GEN-LAST:event_exitButtonActionPerformed
@@ -369,7 +368,7 @@ public class AddProductView extends javax.swing.JPanel {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
         //texto=nameEdit.getText();
-        cerrar=false;
+        presionButtonSave=true;
         JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
         frame.getWindowListeners()[0].windowClosing(null);//
     }//GEN-LAST:event_addButtonActionPerformed

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,7 +32,7 @@ public class VentasView extends javax.swing.JPanel {
     JFrame frame;
     AddProductView apv;
     AddPedidoView apedv;
-    
+    RealizarVentasView rvv;
     EmpleadoLogic empleadologic;
     PedidoLogic pedidologic;
     Empleado empleado;
@@ -43,6 +44,9 @@ public class VentasView extends javax.swing.JPanel {
         initComponents();
         codUserLabel.setText(String.valueOf(empleado.getIdEmp()));
         nombreUserLabel.setText(String.valueOf(empleado.getNomEmp()));
+        boolean joder=true;
+        int val;
+        System.out.println("Este es joder: "+(val = joder? 1 : 0));
         iniButtons();
         Date ahora = new Date();
         dateChooser.setDate(ahora);
@@ -381,14 +385,14 @@ public class VentasView extends javax.swing.JPanel {
         frameNewPedido.addWindowListener(new WindowAdapter(){
                 public void windowClosing(WindowEvent we){
                     frame.setEnabled(true);
-                    actualizarTabla();
+                    if(apedv.presionButtonSave)
+                        actualizarTabla();
                     frameNewPedido.dispose();
                 }
         });
         /**/
     }//GEN-LAST:event_addButtonActionPerformed
     public void actualizarTabla(){
-        if(apedv.cerrar)return;
         Pedido pedido=pedidologic.getUltimoPedido();
         DefaultTableModel temp =(DefaultTableModel) pedidoTable.getModel();
         String estado;
@@ -408,6 +412,40 @@ public class VentasView extends javax.swing.JPanel {
         // TODO add your handling code here:
         //RealizarVentaView rvv=new RealizarVentaView();
         //rvv.setVisible(true);
+        final DefaultTableModel model=(DefaultTableModel)pedidoTable.getModel();
+        final int row=pedidoTable.getSelectedRow();
+        
+        if(row==-1)
+            JOptionPane.showMessageDialog(null,"Tiene que seleccionar un pedido que no este activo");
+        else{
+            String estadoPed=(String)model.getValueAt(row,3);
+            if(estadoPed.equals("realizado")){
+                JOptionPane.showMessageDialog(null,"Se culmino la venta de ese pedido");
+                return;
+            };
+            rvv=new RealizarVentasView();
+            int idPed=(Integer)model.getValueAt(row,1);
+            ArrayList<ItemPedido> listItemPed= pedidologic.getDetallePedido(idPed);
+            rvv.updateCampos(listItemPed,idPed);
+            final JFrame frameNewRealizarVentas=new JFrame();
+            frameNewRealizarVentas.setContentPane(rvv);
+            frameNewRealizarVentas.setVisible(true);
+            frameNewRealizarVentas.setSize(800,700);
+
+            frame=(JFrame)SwingUtilities.getAncestorOfClass(JFrame.class,this);
+            frame.setEnabled(false);
+
+            frameNewRealizarVentas.addWindowListener(new WindowAdapter(){
+                    public void windowClosing(WindowEvent we){
+                        frame.setEnabled(true);
+                        if(rvv.presionButtonSave){
+                          model.setValueAt("realizado",row,3);
+                        }
+                        //actualizarEstado();
+                        frameNewRealizarVentas.dispose();
+                    }
+            });
+        }
         
     }//GEN-LAST:event_sellButtonActionPerformed
 
@@ -440,7 +478,8 @@ public class VentasView extends javax.swing.JPanel {
             frameNewPedido.addWindowListener(new WindowAdapter(){
                     public void windowClosing(WindowEvent we){
                         frame.setEnabled(true);
-                        actualizarTabla();
+                        if(apedv.presionButtonSave)
+                            actualizarTabla();
                         frameNewPedido.dispose();
                     }
             });   

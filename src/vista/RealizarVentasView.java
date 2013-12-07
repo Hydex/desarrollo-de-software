@@ -3,9 +3,17 @@
  * and open the template in the editor.
  */
 package vista;
+import java.text.SimpleDateFormat;
  import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+
+import modelo.FacturaLogic;
 import pojo.ItemPedido;
+import pojo.Factura;
 /**
  *
  * @author geank
@@ -15,16 +23,42 @@ public class RealizarVentasView extends javax.swing.JPanel {
     /**
      * Creates new form RealizarVentasView
      */
+    public final double igv=18;
+    public boolean presionButtonSave;
+    FacturaLogic facturalogic=new FacturaLogic();
+    int idPedido;
     public RealizarVentasView() {
         initComponents();
+        igvEdit.setEditable(false);
+        totalEdit.setEditable(false);
+        checkEfectivo.setSelected(true);
     }
-    public void UpdateTabla(ArrayList<ItemPedido> lista){
+    public void updateCampos(ArrayList<ItemPedido> lista,int idPedido){
+       this.idPedido=idPedido;
+        limpiarTabla();
         DefaultTableModel temp =(DefaultTableModel) productTable.getModel();
+        double total=0;
         for(ItemPedido ip:lista){
             Object[] tmps={ip.getCantidad(),ip.getDesItm(),ip.getPrecio(),ip.getTotal()};
             temp.addRow(tmps);
+            total+=(Double)ip.getTotal();
         }
         productTable.setModel(temp);
+        totalEdit.setText(String.valueOf(total));
+        igvEdit.setText(String.valueOf(igv)+"%");
+    }
+    public void limpiarTabla(){
+        DefaultTableModel modelo=(DefaultTableModel)productTable.getModel();
+        try{
+            int filas=modelo.getRowCount();
+            System.out.println("numero de filas: "+filas);
+            for(int i=0;i<filas;i++)
+                modelo.removeRow(0);
+        }
+        catch(Exception e){
+            System.out.println("Este es el error: "+e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al limpiar la tabla");
+        }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,6 +77,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
         nameLabel = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jobLabel = new javax.swing.JLabel();
+        checkEfectivo = new javax.swing.JCheckBox();
         clientPanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         numDocLabel = new javax.swing.JLabel();
@@ -53,7 +88,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         addressEdit = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dateFact = new com.toedter.calendar.JDateChooser();
         productspanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
@@ -68,6 +103,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
         totalEdit = new javax.swing.JTextField();
         printButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        finButton = new javax.swing.JButton();
 
         mainPanel.setName("mainPanel"); // NOI18N
 
@@ -91,6 +127,14 @@ public class RealizarVentasView extends javax.swing.JPanel {
         jobLabel.setText("Admin/vend");
         jobLabel.setName("jobLabel"); // NOI18N
 
+        checkEfectivo.setText("Efetivo");
+        checkEfectivo.setName("checkEfectivo"); // NOI18N
+        checkEfectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkEfectivoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout userPanelLayout = new javax.swing.GroupLayout(userPanel);
         userPanel.setLayout(userPanelLayout);
         userPanelLayout.setHorizontalGroup(
@@ -106,19 +150,28 @@ public class RealizarVentasView extends javax.swing.JPanel {
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jobLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jobLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkEfectivo)
+                        .addContainerGap())))
         );
         userPanelLayout.setVerticalGroup(
             userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(userLabel))
-                .addGap(18, 18, 18)
+                .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(userLabel)))
+                    .addComponent(checkEfectivo))
+                .addGap(25, 25, 25)
                 .addGroup(userPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(nameLabel)
@@ -158,7 +211,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
 
         addressEdit.setName("addressEdit"); // NOI18N
 
-        jDateChooser1.setName("jDateChooser1"); // NOI18N
+        dateFact.setName("dateFact"); // NOI18N
 
         javax.swing.GroupLayout clientPanelLayout = new javax.swing.GroupLayout(clientPanel);
         clientPanel.setLayout(clientPanelLayout);
@@ -182,7 +235,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
                 .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addressEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                     .addComponent(numDocLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dateFact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         clientPanelLayout.setVerticalGroup(
@@ -198,7 +251,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
                     .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(nameDocEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateFact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -220,7 +273,15 @@ public class RealizarVentasView extends javax.swing.JPanel {
             new String [] {
                 "Cantidad", "Descripcion", "Precio Unit.", "Total"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         productTable.setName("productTable"); // NOI18N
         jScrollPane1.setViewportView(productTable);
 
@@ -268,6 +329,19 @@ public class RealizarVentasView extends javax.swing.JPanel {
 
         saveButton.setText("Guardar");
         saveButton.setName("saveButton"); // NOI18N
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        finButton.setText("Finalizar");
+        finButton.setName("finButton"); // NOI18N
+        finButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -276,7 +350,10 @@ public class RealizarVentasView extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(printButton)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(finButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(printButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -315,7 +392,8 @@ public class RealizarVentasView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(printButton)
-                    .addComponent(saveButton))
+                    .addComponent(saveButton)
+                    .addComponent(finButton))
                 .addGap(0, 8, Short.MAX_VALUE))
         );
 
@@ -326,11 +404,13 @@ public class RealizarVentasView extends javax.swing.JPanel {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
+                        .addComponent(userPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(117, 117, 117))
                     .addComponent(productspanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(clientPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 9, Short.MAX_VALUE))
+                        .addGap(0, 126, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -370,12 +450,36 @@ public class RealizarVentasView extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameDocEditActionPerformed
 
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // TODO add your handling code here:
+       //registramos la factura:
+       int  numactfact=facturalogic.getNumFactura()+1;
+       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       Factura factura=new Factura(String.format("0000000%d", numactfact),idPedido,false,checkEfectivo.isSelected()
+               ,sdf.format(dateFact.getDate()),Double.parseDouble(totalEdit.getText())); 
+       facturalogic.insertarFactura(factura);
+       
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void finButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finButtonActionPerformed
+        // TODO add your handling code here:
+        presionButtonSave=true;
+        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
+        frame.getWindowListeners()[0].windowClosing(null);//
+    }//GEN-LAST:event_finButtonActionPerformed
+
+    private void checkEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEfectivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkEfectivoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressEdit;
     private javax.swing.JTextField cantidadEdit;
+    private javax.swing.JCheckBox checkEfectivo;
     private javax.swing.JPanel clientPanel;
+    private com.toedter.calendar.JDateChooser dateFact;
+    private javax.swing.JButton finButton;
     private javax.swing.JTextField igvEdit;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
