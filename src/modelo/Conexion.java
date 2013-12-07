@@ -71,7 +71,7 @@ public class Conexion {
             // Load the driver class
             Class.forName("com.mysql.jdbc.Driver");
  
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/mms" ,"root","123456a");
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/matahambredb" ,"root","kira");
 
             // Create a connection through the DriverManager 
             //conexion = DriverManager.getConnection(sourceURL,"root","triko12");

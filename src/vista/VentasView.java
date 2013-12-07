@@ -38,7 +38,7 @@ public class VentasView extends javax.swing.JPanel {
     public VentasView() {
         empleadologic= new EmpleadoLogic();
         pedidologic=new PedidoLogic();
-        empleado=empleadologic.getEmpleado(2);
+        empleado=empleadologic.getEmpleado(1);
         initComponents();
         codUserLabel.setText(String.valueOf(empleado.getIdEmp()));
         nombreUserLabel.setText(String.valueOf(empleado.getNomEmp()));
