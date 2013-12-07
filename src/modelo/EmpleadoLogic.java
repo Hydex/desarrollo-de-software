@@ -22,6 +22,7 @@ public class EmpleadoLogic extends SistemaLogico{
     public void guardarBD() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
     public Empleado getEmpleado(int id){
         String sql= "select ideEmp,dniEmp,nomEmp,apePatEmp,apeMatEmp from Empleado where ideEmp="+id;
         Empleado empleado=null;

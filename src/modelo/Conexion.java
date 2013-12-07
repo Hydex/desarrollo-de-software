@@ -16,6 +16,12 @@ public class Conexion {
     //BaseDatos* instance;
     private Connection conexion;
     private ResultSet rpta;
+ 
+    public String bd = "mms";
+    public String login = "root";
+    public String password = "root";
+    public String url = "jdbc:mysql://localhost/"+bd;
+    
     
     private Conexion ()
     {
@@ -71,7 +77,7 @@ public class Conexion {
             // Load the driver class
             Class.forName("com.mysql.jdbc.Driver");
  
-            conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/matahambredb" ,"root","kira");
+            conexion = DriverManager.getConnection(url, login, password);
 
             // Create a connection through the DriverManager 
             //conexion = DriverManager.getConnection(sourceURL,"root","triko12");
