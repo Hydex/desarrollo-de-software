@@ -8,6 +8,7 @@ package modelo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 import pojo.ItemPedido;
 import pojo.Pedido;
@@ -118,5 +119,17 @@ public class PedidoLogic extends SistemaLogico{
     public void actualizarEstadoPedido(int idPed,boolean estado){
         String sql="update Pedido set estado="+estado+" where idePed="+idPed+";";
         bd.insertar(sql);
+    }
+    public void eliminarPedido(int idePed){
+        String sql="delete from  DetalleDelPedido where idePed="+idePed;
+        String sql2="delete from Pedido where idePed="+idePed;
+        if(bd.insertar(sql)){
+            if(bd.insertar(sql2))
+                JOptionPane.showMessageDialog(null,"Se borro correctamente");
+            else
+                JOptionPane.showMessageDialog(null,"Error al borrar pedido");
+        }
+        else
+            JOptionPane.showMessageDialog(null,"Error al borrar detalles");
     }
 }
