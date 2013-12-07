@@ -30,7 +30,7 @@ public class Conexion {
         if(instance==null)
             instance = new Conexion();
         
-        return instance;    
+        return instance;
     }
     public boolean consulta(String consul)
     {
@@ -41,7 +41,7 @@ public class Conexion {
             rpta =statement.executeQuery(consul);
             return true;
         }
-        catch(SQLException sqle) 
+        catch(SQLException sqle)
         {
             return false;
         }
@@ -55,36 +55,36 @@ public class Conexion {
             statement.execute(consul);
             return true;
         }
-        catch(SQLException sqle) 
+        catch(SQLException sqle)
         {
             return false;
         }
     }
     /**
-     * @brief Método que se conecta a la Base de Datos, en éste caso a Postgresql
-     * @return 
-     */
+* @brief Método que se conecta a la Base de Datos, en éste caso a Postgresql
+* @return
+*/
     public String conectar()
     {
-        try 
+        try
         {
             // Load the driver class
             Class.forName("com.mysql.jdbc.Driver");
  
             conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/matahambredb" ,"root","kira");
 
-            // Create a connection through the DriverManager 
+            // Create a connection through the DriverManager
             //conexion = DriverManager.getConnection(sourceURL,"root","triko12");
             //Connection databaseConnection = DriverManager.getConnection(sourceURL);
             System.out.println("Connection is: "+conexion);
             return "Connection is: "+conexion;
-        } 
-        catch(ClassNotFoundException cnfe) 
+        }
+        catch(ClassNotFoundException cnfe)
         {
             //System.out.println(cnfe.toString());
             return "Error 1: "+cnfe;
-        } 
-        catch(SQLException sqle) 
+        }
+        catch(SQLException sqle)
         {
             System.out.println(sqle.toString());
             return "Error 1: "+sqle;

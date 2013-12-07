@@ -132,4 +132,5 @@ public class PedidoLogic extends SistemaLogico{
         else
             JOptionPane.showMessageDialog(null,"Error al borrar detalles");
     }
+
 }

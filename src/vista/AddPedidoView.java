@@ -33,7 +33,7 @@ public class AddPedidoView extends javax.swing.JPanel {
     /**
      * Creates new form AddPedidoView
      */
-    JFrame frame;
+ JFrame frame;
     AddProductView apv;
     PedidoLogic pedidologic;
     Empleado empleado =new Empleado(1);
@@ -455,8 +455,8 @@ public class AddPedidoView extends javax.swing.JPanel {
             String currentTime = sdf.format(dt);
             Pedido pedido=new Pedido(clienteText.getText(),Integer.parseInt(editMesa.getText()),
                     Integer.parseInt(codUserLabel.getText()),0,currentTime);
-
-            pedidologic.setPedido(pedido);
+            System.out.println("mierdadadsdfsafsd");
+            pedidologic.setPedido(pedido);  
             pedidologic.guardarBD();
             pedido=null;
             pedido=pedidologic.getUltimoPedido();
@@ -475,8 +475,8 @@ public class AddPedidoView extends javax.swing.JPanel {
 
     private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
         // TODO add your handling code here:
-        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
-        frame.getWindowListeners()[0].windowClosing(null);//
+       JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
+       frame.getWindowListeners()[0].windowClosing(null);//
     }//GEN-LAST:event_salirButtonActionPerformed
     public void actualizarElemento(){
         String nombre=apv.getTexto();

@@ -280,7 +280,7 @@ public class VentasView extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(contentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(optionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(tablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 328, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -386,13 +386,14 @@ public class VentasView extends javax.swing.JPanel {
                 estado="pendiente";
                 Object temps[]={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
                 temp.addRow(temps);
-            }    
+            }
         }
         pedidoTable.setModel(temp);
         
     }
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         
+          
         apedv=new AddPedidoView();
         apedv.setEmpleado(empleado);
         
@@ -426,27 +427,14 @@ public class VentasView extends javax.swing.JPanel {
         pedidoTable.setModel(temp);
         count++;
     }
-    public void actualizarTabla(ArrayList<Pedido> listapedido){
-        DefaultTableModel temp =(DefaultTableModel) pedidoTable.getModel();
-        for(Pedido pedido: listapedido){
-            String estado=pedido.getEstado()==0?"pendiente":"realizado";
-            Object temps[]={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
-            temp.addRow(temps);
+    public void actualizarTabla(ArrayList<Pedido> listpedido){
+        DefaultTableModel model = (DefaultTableModel) pedidoTable.getModel();
+        for(Pedido pedido: listpedido){
+            String estado= pedido.getEstado()==0?"pendiente":"realizado";              
+            Object temp[]={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
+            model.addRow(temp);
         }
-        pedidoTable.setModel(temp);
-    }
-    private void limpiarTabla(){
-        //resultTable.remove//
-        DefaultTableModel modelo=(DefaultTableModel)pedidoTable.getModel();
-        try{
-            int filas=modelo.getRowCount();
-            for(int i=0;i<filas;i++)
-                modelo.removeRow(0);
-        }
-        catch(Exception e){
-            System.out.println("Este es el error: "+e.getMessage());
-            JOptionPane.showMessageDialog(null,"Error al limpiar la tabla");
-        }
+        pedidoTable.setModel(model);
     }
     public void actualizarDato(){
         String msm=apv.mostrar();
@@ -500,7 +488,7 @@ public class VentasView extends javax.swing.JPanel {
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model=(DefaultTableModel)pedidoTable.getModel();
+         DefaultTableModel model=(DefaultTableModel)pedidoTable.getModel();
         int row=pedidoTable.getSelectedRow();
         boolean avanzar=true;
         if(row==-1)
@@ -508,7 +496,7 @@ public class VentasView extends javax.swing.JPanel {
         else{
             int idePed=(Integer)model.getValueAt(row,1);
             apedv=new AddPedidoView();
-            apedv.setEmpleado(empleado); 
+            apedv.setEmpleado(empleado);
             apedv.isUpdate=true;
             Pedido pedidoa=pedidologic.getPedido(idePed);
             ArrayList<ItemPedido> listitems=pedidologic.getDetallePedido(idePed);
@@ -526,7 +514,7 @@ public class VentasView extends javax.swing.JPanel {
                             actualizarTabla();
                         frameNewPedido.dispose();
                     }
-            });   
+            });
         }
     }//GEN-LAST:event_editButtonActionPerformed
 
@@ -564,6 +552,20 @@ public class VentasView extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
+    private void limpiarTabla(){
+        //resultTable.remove//
+        DefaultTableModel modelo=(DefaultTableModel)pedidoTable.getModel();
+        try{
+            int filas=modelo.getRowCount();
+            System.out.println("numero de filas: "+filas);
+            for(int i=0;i<filas;i++)
+                modelo.removeRow(0);
+        }
+        catch(Exception e){
+            System.out.println("Este es el error: "+e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al limpiar la tabla");
+        }
+    }
     private void detailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detailButtonActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model=(DefaultTableModel)pedidoTable.getModel();

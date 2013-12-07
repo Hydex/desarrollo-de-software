@@ -334,8 +334,8 @@ public class AddProductView extends javax.swing.JPanel {
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         // TODO add your handling code here:
-        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
-        frame.getWindowListeners()[0].windowClosing(null);
+      JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
+      frame.getWindowListeners()[0].windowClosing(null);
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
