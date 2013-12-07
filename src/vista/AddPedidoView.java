@@ -448,7 +448,7 @@ public class AddPedidoView extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(isUpdate){
             java.util.Date dt = new java.util.Date();
-            java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd");
+            java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String currentTime = sdf.format(dt);
             Pedido pedido=new Pedido(clienteText.getText(),Integer.parseInt(editMesa.getText()),
                     Integer.parseInt(codUserLabel.getText()),0,currentTime);

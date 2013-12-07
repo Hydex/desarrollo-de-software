@@ -30,7 +30,7 @@ public class PedidoLogic extends SistemaLogico{
     @Override
     public void guardarBD() {
       
-       String sql="insert into Pedido(nomPed,nroMesPed,ideEmp,estado,fecha) values('"+pedido.getNomPed()+"',"+
+       String sql="insert into Pedido(nomPed,nroMesPed,ideEmp,estado,fecHorPed) values('"+pedido.getNomPed()+"',"+
                pedido.getNuroMesPed()+","+pedido.getIdeEmp()+","+pedido.getEstado()+",'"+pedido.getFecha()+"');";
        bd.insertar(sql);
     }
@@ -46,7 +46,7 @@ public class PedidoLogic extends SistemaLogico{
             while(rpta.next()){
                 //int ideped, String nomPed, int nuroMesPed, int ideEmp, int estado,String fecha
                 ped=new Pedido(rpta.getInt("idePed"),rpta.getString("nomPed"),rpta.getInt("nroMesPed"),rpta.getInt("ideEmp"),rpta.getInt("estado"),
-                        rpta.getString("fecha"));
+                        rpta.getString("fecHorPed"));
             }
             return ped;
         } catch (SQLException ex) {
@@ -63,7 +63,7 @@ public class PedidoLogic extends SistemaLogico{
             while(rpta.next()){
                 //int ideped, String nomPed, int nuroMesPed, int ideEmp, int estado,String fecha
                 ped=new Pedido(rpta.getInt("idePed"),rpta.getString("nomPed"),rpta.getInt("nroMesPed"),rpta.getInt("ideEmp"),rpta.getInt("estado"),
-                        rpta.getString("fecha"));
+                        rpta.getString("fecHorPed"));
             }
             return ped;
         } catch (SQLException ex) {
@@ -71,7 +71,7 @@ public class PedidoLogic extends SistemaLogico{
         }
     }
     public ArrayList<Pedido> getPedidoFecha(String fecha){
-        String sql="SELECT * FROM Pedido where fecha='"+fecha+"';";
+        String sql="SELECT * FROM Pedido where fecHorPed like='"+fecha+"%';";
         ArrayList<Pedido> listpedidos=new ArrayList<Pedido>();
         bd.consulta(sql);
         ResultSet rpta=bd.getRespuesta();
@@ -79,7 +79,7 @@ public class PedidoLogic extends SistemaLogico{
             while(rpta.next()){
                 //int ideped, String nomPed, int nuroMesPed, int ideEmp, int estado,String fecha
                 Pedido pedido=new Pedido(rpta.getInt("idePed"),rpta.getString("nomPed"),rpta.getInt("nroMesPed"),rpta.getInt("ideEmp"),rpta.getInt("estado"),
-                        rpta.getString("fecha"));
+                        rpta.getString("fecHorPed"));
                 listpedidos.add(pedido);
             }
             return listpedidos;

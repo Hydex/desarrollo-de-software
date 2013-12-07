@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 package vista;
-
+ import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import pojo.ItemPedido;
 /**
  *
  * @author geank
@@ -16,7 +18,14 @@ public class RealizarVentasView extends javax.swing.JPanel {
     public RealizarVentasView() {
         initComponents();
     }
-
+    public void UpdateTabla(ArrayList<ItemPedido> lista){
+        DefaultTableModel temp =(DefaultTableModel) productTable.getModel();
+        for(ItemPedido ip:lista){
+            Object[] tmps={ip.getCantidad(),ip.getDesItm(),ip.getPrecio(),ip.getTotal()};
+            temp.addRow(tmps);
+        }
+        productTable.setModel(temp);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,8 +52,8 @@ public class RealizarVentasView extends javax.swing.JPanel {
         rucEdit = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        dateEdit = new javax.swing.JTextField();
         addressEdit = new javax.swing.JTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         productspanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
@@ -147,9 +156,9 @@ public class RealizarVentasView extends javax.swing.JPanel {
         jLabel8.setText("Direccion:");
         jLabel8.setName("jLabel8"); // NOI18N
 
-        dateEdit.setName("dateEdit"); // NOI18N
-
         addressEdit.setName("addressEdit"); // NOI18N
+
+        jDateChooser1.setName("jDateChooser1"); // NOI18N
 
         javax.swing.GroupLayout clientPanelLayout = new javax.swing.GroupLayout(clientPanel);
         clientPanel.setLayout(clientPanelLayout);
@@ -170,11 +179,10 @@ public class RealizarVentasView extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addComponent(jLabel8))
                 .addGap(18, 18, 18)
-                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(addressEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(numDocLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(addressEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(numDocLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         clientPanelLayout.setVerticalGroup(
@@ -189,8 +197,8 @@ public class RealizarVentasView extends javax.swing.JPanel {
                     .addComponent(jLabel7)
                     .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
-                        .addComponent(nameDocEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(nameDocEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -207,10 +215,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
 
         productTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Cantidad", "Descripcion", "Precio Unit.", "Total"
@@ -369,8 +374,8 @@ public class RealizarVentasView extends javax.swing.JPanel {
     private javax.swing.JTextField addressEdit;
     private javax.swing.JTextField cantidadEdit;
     private javax.swing.JPanel clientPanel;
-    private javax.swing.JTextField dateEdit;
     private javax.swing.JTextField igvEdit;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
