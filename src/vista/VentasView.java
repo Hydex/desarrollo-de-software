@@ -44,9 +44,6 @@ public class VentasView extends javax.swing.JPanel {
         initComponents();
         codUserLabel.setText(String.valueOf(empleado.getIdEmp()));
         nombreUserLabel.setText(String.valueOf(empleado.getNomEmp()));
-        boolean joder=true;
-        int val;
-        System.out.println("Este es joder: "+(val = joder? 1 : 0));
         iniButtons();
         Date ahora = new Date();
         dateChooser.setDate(ahora);
@@ -212,6 +209,11 @@ public class VentasView extends javax.swing.JPanel {
 
         fechaButton.setText("Ir");
         fechaButton.setName("fechaButton"); // NOI18N
+        fechaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -360,11 +362,11 @@ public class VentasView extends javax.swing.JPanel {
         
         for(Pedido pedido: listapedido){
             String estado;
-            if(pedido.getEstado()==0)
+            if(pedido.getEstado()==0){
                 estado="pendiente";
-            else estado="realizado";
-            Object temps[]={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
-            temp.addRow(temps);
+                Object temps[]={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
+                temp.addRow(temps);
+            }    
         }
         pedidoTable.setModel(temp);
         
@@ -403,6 +405,28 @@ public class VentasView extends javax.swing.JPanel {
         temp.addRow(fila);
         pedidoTable.setModel(temp);
         count++;
+    }
+    public void actualizarTabla(ArrayList<Pedido> listapedido){
+        DefaultTableModel temp =(DefaultTableModel) pedidoTable.getModel();
+        for(Pedido pedido: listapedido){
+            String estado=pedido.getEstado()==0?"pendiente":"realizado";
+            Object temps[]={new Boolean(false),pedido.getIdeped(),pedido.getNomPed(),estado};
+            temp.addRow(temps);
+        }
+        pedidoTable.setModel(temp);
+    }
+    private void limpiarTabla(){
+        //resultTable.remove//
+        DefaultTableModel modelo=(DefaultTableModel)pedidoTable.getModel();
+        try{
+            int filas=modelo.getRowCount();
+            for(int i=0;i<filas;i++)
+                modelo.removeRow(0);
+        }
+        catch(Exception e){
+            System.out.println("Este es el error: "+e.getMessage());
+            JOptionPane.showMessageDialog(null,"Error al limpiar la tabla");
+        }
     }
     public void actualizarDato(){
         String msm=apv.mostrar();
@@ -485,6 +509,14 @@ public class VentasView extends javax.swing.JPanel {
             });   
         }
     }//GEN-LAST:event_editButtonActionPerformed
+
+    private void fechaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaButtonActionPerformed
+        // TODO add your handling code here:
+        SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
+        ArrayList<Pedido> listped=pedidologic.getPedidoFecha(sdf.format(dateChooser.getDate()));
+        limpiarTabla();
+        actualizarTabla(listped);
+    }//GEN-LAST:event_fechaButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;

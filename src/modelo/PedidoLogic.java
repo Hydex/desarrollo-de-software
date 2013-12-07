@@ -115,5 +115,8 @@ public class PedidoLogic extends SistemaLogico{
         }
         
     }
-    //public Pedido
+    public void actualizarEstadoPedido(int idPed,boolean estado){
+        String sql="update Pedido set estado="+estado+" where idePed="+idPed+";";
+        bd.insertar(sql);
+    }
 }

@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import modelo.FacturaLogic;
+import modelo.PedidoLogic;
 import pojo.ItemPedido;
 import pojo.Factura;
 /**
@@ -26,6 +27,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
     public final double igv=18;
     public boolean presionButtonSave;
     FacturaLogic facturalogic=new FacturaLogic();
+    PedidoLogic pedidologic=new PedidoLogic();
     int idPedido;
     public RealizarVentasView() {
         initComponents();
@@ -459,6 +461,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
                ,sdf.format(dateFact.getDate()),Double.parseDouble(totalEdit.getText())); 
        facturalogic.insertarFactura(factura);
        
+       pedidologic.actualizarEstadoPedido(idPedido,true);
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void finButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finButtonActionPerformed
