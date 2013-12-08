@@ -3,14 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/modelo/Conexion.java</file>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/vista/CajaView.java</file>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/vista/VentasView.java</file>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/modelo/SistemaLogico.java</file>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/modelo/EmpleadoLogic.java</file>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/modelo/ItemLogic.java</file>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/modelo/PedidoLogic.java</file>
-            <file>file:/Users/Hydex/Desktop/VentasMataHambre/src/ventas/Principal.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/modelo/ConexionAux.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/modelo/Conexion.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/vista/Administrador.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/vista/Inicio.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/ventas/Main.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/modelo/HistorialLog.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/modelo/HistorialGen.java</file>
+            <file>file:/home/alison/Escritorio/Final%20DS/desarrollo-de-software/src/modelo/Seguridad.java</file>
         </group>
     </open-files>
 </project-private>
