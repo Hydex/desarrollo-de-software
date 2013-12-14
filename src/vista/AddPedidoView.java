@@ -469,7 +469,7 @@ public class AddPedidoView extends javax.swing.JPanel {
             frame.getWindowListeners()[0].windowClosing(null);//
         }
         else{
-            
+            //eliminar todos los registros en la tabla y volverlos a insertar mas los nuevos;
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 

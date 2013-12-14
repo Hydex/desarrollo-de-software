@@ -488,17 +488,20 @@ public class VentasView extends javax.swing.JPanel {
 
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
-         DefaultTableModel model=(DefaultTableModel)pedidoTable.getModel();
+        DefaultTableModel model=(DefaultTableModel)pedidoTable.getModel();
         int row=pedidoTable.getSelectedRow();
-        boolean avanzar=true;
         if(row==-1)
-            avanzar=false;
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
         else{
             int idePed=(Integer)model.getValueAt(row,1);
+            Pedido pedidoa=pedidologic.getPedido(idePed);
+            if(pedidoa.getEstado()==1){
+                JOptionPane.showMessageDialog(null, "El pedido seleccionado no se puede editar, pruebe con detalles");
+                return;
+            }
             apedv=new AddPedidoView();
             apedv.setEmpleado(empleado);
             apedv.isUpdate=true;
-            Pedido pedidoa=pedidologic.getPedido(idePed);
             ArrayList<ItemPedido> listitems=pedidologic.getDetallePedido(idePed);
             apedv.actualizarTablaPedido(listitems,pedidoa.getNomPed(),String.valueOf(pedidoa.getNuroMesPed()));
             final JFrame frameNewPedido=new JFrame();

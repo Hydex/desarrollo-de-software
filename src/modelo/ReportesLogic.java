@@ -71,8 +71,8 @@ public class ReportesLogic extends SistemaLogico{
     public void cargar_datos_venta(DefaultTableModel mi_modelo)
     {
         
-        String consultasql = "select pe.idePed, pe.nomPedido, sum(preItm * dp.cntDetPed) as Total from Item I natural join DetalleDelPedido dp , Pedido pe where pe.idePed = dp.idePed group by pe.idePed";
-        try {
+        String consultasql = "select pe.idePed, pe.nomPed, sum(I.preItm * dp.cntDetPed) as Total from Item I natural join DetalleDelPedido dp , Pedido pe where pe.idePed = dp.idePed group by pe.idePed";
+            try {
             
             bd.consulta(consultasql);
             ResultSet rpta = bd.getRespuesta();
