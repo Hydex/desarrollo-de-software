@@ -71,6 +71,7 @@ public class Main extends javax.swing.JFrame {
         administrador1 = new vista.Administrador();
         ventasView2 = new vista.VentasView();
         reportes2 = new vista.Reportes();
+        cajaView2 = new vista.CajaView();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -273,6 +274,7 @@ public class Main extends javax.swing.JFrame {
         jTabbedPane.addTab("Administrador", new javax.swing.ImageIcon(getClass().getResource("/img/Customer_Male_Light_48px.png")), administrador1); // NOI18N
         jTabbedPane.addTab("Ventas", new javax.swing.ImageIcon(getClass().getResource("/img/Additional money.png")), ventasView2); // NOI18N
         jTabbedPane.addTab("Reportes", new javax.swing.ImageIcon(getClass().getResource("/img/graph_chart_1.png")), reportes2); // NOI18N
+        jTabbedPane.addTab("Caja", new javax.swing.ImageIcon(getClass().getResource("/img/dolar.png")), cajaView2); // NOI18N
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("File");
@@ -352,7 +354,7 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE))
+                .addComponent(jTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE))
         );
 
         pack();
@@ -476,11 +478,7 @@ public class Main extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-       //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+      
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -499,7 +497,7 @@ public class Main extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        
           try{
              UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
           } catch (Exception e) {
@@ -520,6 +518,7 @@ public class Main extends javax.swing.JFrame {
     private vista.Administrador administrador1;
     private javax.swing.JButton bn_login_cerrar;
     private javax.swing.JButton bn_login_ingresar;
+    private vista.CajaView cajaView2;
     private javax.swing.JMenuItem contentsMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
     private javax.swing.JMenuItem cutMenuItem;

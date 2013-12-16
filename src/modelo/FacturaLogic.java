@@ -5,6 +5,7 @@
 package modelo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import pojo.Factura;
 /**
@@ -43,5 +44,27 @@ public class FacturaLogic extends SistemaLogico{
         } catch (SQLException ex) {
             return 0;
         }
+    }
+    public ArrayList<Factura> getFactura(String fecha){
+        String sql="SELECT * FROM Factura where fechaEmision='"+fecha+"' and estAnuFac=0;";
+        ArrayList<Factura> listfacturas=new ArrayList<Factura>();
+        bd.consulta(sql);
+        ResultSet rpta=bd.getRespuesta();
+        try {
+            while(rpta.next()){
+                //int ideped, String nomPed, int nuroMesPed, int ideEmp, int estado,String fecha
+                
+                Factura pedido=new Factura(rpta.getString("nroFac"),rpta.getInt("idePed"),rpta.getBoolean("estAnuFac"),rpta.getBoolean("tipPagFac"),rpta.getString("fechaEmision"),
+                        rpta.getDouble("total"));
+                listfacturas.add(pedido);
+            }
+            return listfacturas;
+        } catch (SQLException ex) {
+            return listfacturas;
+        }
+    }
+    public void cambiarEstadoFacura(String num){
+        String sql="update Factura set estAnuFac=1 where nroFac='"+num+"';";
+        bd.insertar(sql);
     }
 }

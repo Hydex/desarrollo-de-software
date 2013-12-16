@@ -456,7 +456,7 @@ public class RealizarVentasView extends javax.swing.JPanel {
         // TODO add your handling code here:
        //registramos la factura:
        int  numactfact=facturalogic.getNumFactura()+1;
-       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
        Factura factura=new Factura(String.format("0000000%d", numactfact),idPedido,false,checkEfectivo.isSelected()
                ,sdf.format(dateFact.getDate()),Double.parseDouble(totalEdit.getText())); 
        facturalogic.insertarFactura(factura);
