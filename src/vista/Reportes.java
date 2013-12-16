@@ -27,6 +27,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 import modelo.ReportesLogic; 
+import modelo.ConexionAux;
 
 public class Reportes extends javax.swing.JPanel {
 
@@ -172,7 +173,7 @@ public class Reportes extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID_ITEM", "Nombre", "Cantidad", "Precio"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -190,11 +191,9 @@ public class Reportes extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(88, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
@@ -262,8 +261,11 @@ public class Reportes extends javax.swing.JPanel {
         
         DefaultTableModel mi_modelo = new DefaultTableModel();
         this.jTable1.setModel(mi_modelo);
-
-        mireporte.Procesar_reporte_ventas(mi_modelo);  
+        String tiempo = this.jComboBox2.getSelectedItem().toString();
+        
+        System.out.println("tiempooo: " + tiempo);
+        
+        mireporte.Procesar_reporte_ventas(mi_modelo,tiempo);  
     }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
@@ -334,24 +336,15 @@ public class Reportes extends javax.swing.JPanel {
         
         */
         try{
-            
-        /*conexion bd = new conexion();
-        Statement st = bd.conectar();
-         ResultSet rs = st.executeQuery("select MONTH(do.fechaPedido) , sum(dp.cntDetPed * I.preItm) from DetalleDelPedido dp natural join Item I group by MONTH(do.fechaPedido)");
-             ResultSetMetaData datos = rs.getMetaData();
-            int num_columnas = datos.getColumnCount();
-          */  
+          
+          
             String []meses = {"","Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Set","Oct","Nov","Dic"};
-            Double []totales = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+            Double []totales = {1140.34,1231.453,1212.43,1523.43,1112.33,1323.21,2002.23,2132.21,1211.21,2211.21,2311.76,1553.07,2034.32};
+          //Double []totales = {0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0};
+            
+           //Double.parseDouble(""+0.0);
            
-           /*Double.parseDouble(""+0.0);
-            while (rs.next()) {
-              Object[] fila = new Object[num_columnas];
-              for (int i = 0; i < num_columnas; i++) {
-                totales[Integer.parseInt(""+rs.getObject(1))] = Double.parseDouble(""+rs.getObject(2));
-              }
-            }
-            */
+            mireporte.llenar_meses_graficos(totales);
              DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
         for(int i = 1; i <= 12; i++ )

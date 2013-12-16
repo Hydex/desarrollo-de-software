@@ -13,9 +13,9 @@ import java.sql.*;
 
 public class ConexionAux 
 {
-    public String bd = "matahambredb";
+    public String bd = "mms";
     public String login = "root";
-    public String password = "kira";
+    public String password = "root";
     public String url = "jdbc:mysql://localhost:3306/"+bd;
     
     public static Connection cn;
