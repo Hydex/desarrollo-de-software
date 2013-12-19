@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -197,6 +198,11 @@ public class AddPedidoView extends javax.swing.JPanel {
 
         deleteButton.setText("Eliminar");
         deleteButton.setName("deleteButton"); // NOI18N
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
 
         saveButton.setText("Guardar");
         saveButton.setName("saveButton"); // NOI18N
@@ -478,6 +484,18 @@ public class AddPedidoView extends javax.swing.JPanel {
        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
        frame.getWindowListeners()[0].windowClosing(null);//
     }//GEN-LAST:event_salirButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+        int row=pedidoTable.getSelectedRow();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null,"debe seleccionar una tabla");
+        }
+        else{
+            CustomTableModel tablemodel=(CustomTableModel)pedidoTable.getModel();
+            
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
     public void actualizarElemento(){
         String nombre=apv.getTexto();
         //clientLabel.setText(nombre);

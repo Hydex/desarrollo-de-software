@@ -897,6 +897,18 @@ is divided into following sections:
     <target depends="init,-check-automatic-build,-clean-after-automatic-build" name="-verify-automatic-build"/>
     <target depends="init" name="-check-automatic-build">
         <available file="${build.classes.dir}/.netbeans_automatic_build" property="netbeans.automatic.build"/>
+    </target>,-init-user,-init-project,-do-init,-post-init,-init-check,-init-macrodef-property,-init-macrodef-javac,-init-macrodef-test,-init-macrodef-test-debug,-init-macrodef-nbjpda,-init-macrodef-debug,-init-macrodef-java,-init-presetdef-jar,-init-ap-cmdline" name="init"/>
+    <!--
+                ===================
+                COMPILATION SECTION
+                ===================
+            -->
+    <target name="-deps-jar-init" unless="built-jar.properties">
+        <property location="${build.dir}/built-jar.properties" name="built-jar.properties"/>
+        <delete file="${built-jar.properties}" quiet="true"/>
+    </target>
+    <target if="already.built.jar.${basedir}" name="-warn-already-built-jar">
+        <echo level="warn" message="Cycle detected: MMS was already built"/>
     </target>
     <target depends="init" if="netbeans.automatic.build" name="-clean-after-automatic-build">
         <antcall target="clean"/>

@@ -104,10 +104,13 @@ public class Administrador extends javax.swing.JPanel {
                if(palabras2.elementAt(i).equals("Administrador"))
                nivel=nivel+"1";
               
-               else if(palabras2.elementAt(i).equals("Gerente"))
+               else if(palabras2.elementAt(i).equals("Ventas"))
                     nivel=nivel+"2";
-               else if(palabras2.elementAt(i).equals("Cajero"))
+               else if(palabras2.elementAt(i).equals("Reportes"))
                nivel=nivel+"3";
+               else if(palabras2.elementAt(i).equals("Cajero"))
+               nivel=nivel+"4|";
+              
                else
                    nivel=nivel+"";
                
@@ -262,7 +265,6 @@ public class Administrador extends javax.swing.JPanel {
         Bloquear_UsuarioBoton = new javax.swing.JButton();
         Eliminar_UsuarioBoton = new javax.swing.JButton();
         Desbloquear_UsuarioBoton = new javax.swing.JButton();
-        Forzar_CambioPassBoton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         Bloquear_TerminalBoton = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
@@ -272,6 +274,7 @@ public class Administrador extends javax.swing.JPanel {
         Registar_Terminal = new javax.swing.JButton();
         Eliminar_TerminalBoton = new javax.swing.JButton();
         Desbloquear_TerminalBoton = new javax.swing.JButton();
+        trabajadorView1 = new vista.TrabajadorView();
 
         codigo_Empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -786,13 +789,6 @@ public class Administrador extends javax.swing.JPanel {
             }
         });
 
-        Forzar_CambioPassBoton.setText("Forzar Cambio Password");
-        Forzar_CambioPassBoton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Forzar_CambioPassBotonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -800,15 +796,14 @@ public class Administrador extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Eliminar_UsuarioBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Desbloquear_UsuarioBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Bloquear_UsuarioBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Modificar_UsuarioBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Forzar_CambioPassBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Registar_UsuarioBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Buscar_UsuarioBoton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(64, 64, 64))
@@ -822,9 +817,7 @@ public class Administrador extends javax.swing.JPanel {
                         .addComponent(Buscar_UsuarioBoton)
                         .addGap(18, 18, 18)
                         .addComponent(Registar_UsuarioBoton)
-                        .addGap(14, 14, 14)
-                        .addComponent(Forzar_CambioPassBoton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(55, 55, 55)
                         .addComponent(Modificar_UsuarioBoton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Bloquear_UsuarioBoton)
@@ -836,7 +829,7 @@ public class Administrador extends javax.swing.JPanel {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Usuario", jPanel1);
@@ -926,7 +919,7 @@ public class Administrador extends javax.swing.JPanel {
                     .addComponent(Bloquear_TerminalBoton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Registar_Terminal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Buscar_TerminalBoton, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -947,20 +940,21 @@ public class Administrador extends javax.swing.JPanel {
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Terminales", jPanel2);
+        jTabbedPane1.addTab("Empleados", trabajadorView1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 855, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1146,44 +1140,6 @@ public class Administrador extends javax.swing.JPanel {
               this.Buscar_UsuarioBoton.doClick();
          }
     }//GEN-LAST:event_Enter_Buscar
-
-    private void Forzar_CambioPassBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Forzar_CambioPassBotonActionPerformed
-              ConexionAux conectar = new ConexionAux();//La ConexionAux tiene que mejorarse termina ni bien entra al sistema 
-            Statement st =conectar.conectar();// o asi son siempre las conexiones de ser asi se tendria que hacer una llamado enc ada accion 
-            usuario =(String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-            int confirmado = JOptionPane.showConfirmDialog(null,"Advertencia!\nConfirma Bloquear Usuario?");
-
-    if (JOptionPane.OK_OPTION == confirmado){
-
-        
-          try
-                               {
-                              
-                                   //int cambioExitoso = st.executeUpdate("DELETE FROM UsuariosHMS WHERE ID='"+usuario+"'");
-                                   int cambioExitoso = st.executeUpdate("UPDATE Usuario SET estBlqUsu=0 WHERE ideusu='"+usuario+"'");                   
-                                     if(cambioExitoso==1){
-                                         JOptionPane.showMessageDialog(null, "Operacion Exitosa\n");
-                                         this.llenar_tabla();
-                                 
-                                     }
-                                     else{
-                                     JOptionPane.showMessageDialog(null, "Sucedio un error no se pudo concretar el cambio\nVuelva a intentarlo mas tarde\no comuniquese con el administrador!");
-                                  
-                                     System.exit(0);
-                                     }
-                                 
-                                 st.close();
-                               }
-                               catch (Exception e)
-                          {
-                              System.out.println("Error01");
-                              e.printStackTrace();
-                      }
-    }
-    else
-         JOptionPane.showMessageDialog(null, "No se continuo con la accion!");
-                       
-    }//GEN-LAST:event_Forzar_CambioPassBotonActionPerformed
 
     private void addEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEspActionPerformed
 
@@ -1799,7 +1755,6 @@ private void goto_verificar(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_goto
     private javax.swing.JButton Desbloquear_UsuarioBoton;
     private javax.swing.JButton Eliminar_TerminalBoton;
     private javax.swing.JButton Eliminar_UsuarioBoton;
-    private javax.swing.JButton Forzar_CambioPassBoton;
     private javax.swing.ButtonGroup GEN_PASSWORD;
     private javax.swing.ButtonGroup GEN_PASSWORD_R;
     private javax.swing.JFrame Modificar_Usuario;
@@ -1862,6 +1817,7 @@ private void goto_verificar(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_goto
     private javax.swing.JButton registrarBoton2;
     private javax.swing.JButton removeEsp;
     private javax.swing.JButton removeEsp1;
+    private vista.TrabajadorView trabajadorView1;
     private javax.swing.JButton verificarExistencia;
     private javax.swing.JButton verificarExistencia1;
     // End of variables declaration//GEN-END:variables

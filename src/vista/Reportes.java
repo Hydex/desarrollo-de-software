@@ -281,7 +281,7 @@ public class Reportes extends javax.swing.JPanel {
         
         
                 DefaultTableModel mi_modelo = new DefaultTableModel();
-        this.jTable1.setModel(mi_modelo);
+        this.jTable2.setModel(mi_modelo);
         
         mireporte.cargar_datos_venta(mi_modelo);
         

@@ -660,12 +660,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" pref="855" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" pref="412" max="32767" attributes="0"/>
+          <Component id="jTabbedPane1" alignment="0" pref="425" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -689,8 +689,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" pref="556" max="32767" attributes="1"/>
-                          <Component id="jTextField1" alignment="0" pref="556" max="32767" attributes="1"/>
+                          <Component id="jScrollPane1" pref="530" max="32767" attributes="1"/>
+                          <Component id="jTextField1" alignment="0" pref="530" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -698,7 +698,6 @@
                           <Component id="Desbloquear_UsuarioBoton" alignment="0" max="32767" attributes="1"/>
                           <Component id="Bloquear_UsuarioBoton" alignment="0" max="32767" attributes="1"/>
                           <Component id="Modificar_UsuarioBoton" alignment="0" max="32767" attributes="1"/>
-                          <Component id="Forzar_CambioPassBoton" alignment="0" max="32767" attributes="1"/>
                           <Component id="Registar_UsuarioBoton" alignment="0" max="32767" attributes="1"/>
                           <Component id="Buscar_UsuarioBoton" alignment="1" min="-2" pref="223" max="-2" attributes="1"/>
                       </Group>
@@ -715,9 +714,7 @@
                               <Component id="Buscar_UsuarioBoton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Component id="Registar_UsuarioBoton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                              <Component id="Forzar_CambioPassBoton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                               <Component id="Modificar_UsuarioBoton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="Bloquear_UsuarioBoton" min="-2" max="-2" attributes="0"/>
@@ -732,7 +729,7 @@
                               <Component id="jScrollPane1" min="-2" pref="268" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <EmptySpace pref="75" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -827,14 +824,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Desbloquear_UsuarioBotonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Forzar_CambioPassBoton">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Forzar Cambio Password"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Forzar_CambioPassBotonActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -863,7 +852,7 @@
                           <Component id="Registar_Terminal" alignment="0" max="32767" attributes="1"/>
                           <Component id="Buscar_TerminalBoton" alignment="0" pref="206" max="32767" attributes="1"/>
                       </Group>
-                      <EmptySpace pref="58" max="32767" attributes="0"/>
+                      <EmptySpace pref="55" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -889,7 +878,7 @@
                               <Component id="jScrollPane4" min="-2" pref="268" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <EmptySpace pref="75" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -978,6 +967,15 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="vista.TrabajadorView" name="trabajadorView1">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Empleados">
+                <Property name="tabTitle" type="java.lang.String" value="Empleados"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
