@@ -88,6 +88,23 @@ public class PedidoLogic extends SistemaLogico{
             return listpedidos;
         }
     }
+    public ArrayList<Pedido> getPedidoFechaPendientes(String fecha){
+        String sql="SELECT * FROM Pedido where fecHorPed like '"+fecha+"%' and estado=0;";
+        ArrayList<Pedido> listpedidos=new ArrayList<Pedido>();
+        bd.consulta(sql);
+        ResultSet rpta=bd.getRespuesta();
+        try {
+            while(rpta.next()){
+                //int ideped, String nomPed, int nuroMesPed, int ideEmp, int estado,String fecha
+                Pedido pedido=new Pedido(rpta.getInt("idePed"),rpta.getString("nomPed"),rpta.getInt("nroMesPed"),rpta.getInt("ideEmp"),rpta.getInt("estado"),
+                        rpta.getString("fecHorPed"));
+                listpedidos.add(pedido);
+            }
+            return listpedidos;
+        } catch (SQLException ex) {
+            return listpedidos;
+        }
+    }
     public void setPedido(Pedido pedido){
         this.pedido=pedido;
     }
@@ -95,6 +112,32 @@ public class PedidoLogic extends SistemaLogico{
         String sql="insert into DetalleDelPedido values("+item.getIdeItm()+","+idePed+","+item.getCantidad()+
                 ",'"+item.getDesItm()+"',"+item.getTotal()+")";
         bd.insertar(sql);
+    }
+    public ItemPedido getDetallePedidoItem(int idePed, int ideItem){
+        String sql="select dp.*,i.preItm from DetalleDelPedido dp inner join Item i on dp.ideItm=i.ideItm"
+                + " where dp.idePed="+idePed +" and dp.ideItm="+ideItem+";";
+        ItemPedido item=null;
+        bd.consulta(sql);
+        ResultSet rpta=bd.getRespuesta();
+        try{
+            while(rpta.next()){
+                item=new ItemPedido(rpta.getInt("ideItm"),rpta.getString("nomItm"),rpta.getInt("cntDetPed"),
+                        rpta.getDouble("preItm"),rpta.getDouble("total"));
+            }
+            return item;
+        }
+        catch(SQLException ex){
+            return item;
+        }
+    }
+    public void actualizarDetalleDelPedido(int idePed,ItemPedido item){
+        String sql="update DetalleDelPedido set cntDetPed="+item.getCantidad()+
+                ",total="+item.getTotal()+" where idePed="+idePed +" and ideItm="+item.getIdeItm();
+        try{
+            bd.insertar(sql);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error al actualizar la base de datos");
+        }
     }
     public ArrayList<ItemPedido> getDetallePedido(int id){
         String sql="select* from DetalleDelPedido where idePed="+id;
@@ -123,14 +166,12 @@ public class PedidoLogic extends SistemaLogico{
     public void eliminarPedido(int idePed){
         String sql="delete from  DetalleDelPedido where idePed="+idePed;
         String sql2="delete from Pedido where idePed="+idePed;
-        if(bd.insertar(sql)){
-            if(bd.insertar(sql2))
-                JOptionPane.showMessageDialog(null,"Se borro correctamente");
-            else
-                JOptionPane.showMessageDialog(null,"Error al borrar pedido");
+        try{
+            bd.insertar(sql);
+            bd.insertar(sql2);
+        }catch(Exception e){
+             JOptionPane.showMessageDialog(null,"Error al borrar detalles");
         }
-        else
-            JOptionPane.showMessageDialog(null,"Error al borrar detalles");
     }
 
 }

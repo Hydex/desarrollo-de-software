@@ -82,4 +82,8 @@ public class CustomTableModel extends AbstractTableModel{
         registros.add(item);
         fireTableDataChanged();
     } 
+    public void removeRow(int row){
+        registros.remove(row);
+        this.fireTableRowsDeleted(row, row);
+    }
 }

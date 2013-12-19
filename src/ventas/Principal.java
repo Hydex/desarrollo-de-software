@@ -31,6 +31,7 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         ventasView2 = new vista.VentasView();
         reportes1 = new vista.Reportes();
+        cajaView1 = new vista.CajaView();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -49,6 +50,9 @@ public class Principal extends javax.swing.JFrame {
 
         reportes1.setName("reportes1"); // NOI18N
         jTabbedPane1.addTab("Reportes", reportes1);
+
+        cajaView1.setName("cajaView1"); // NOI18N
+        jTabbedPane1.addTab("tab3", cajaView1);
 
         jMenuBar1.setName("jMenuBar1"); // NOI18N
 
@@ -79,7 +83,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 472, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -89,7 +93,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    /*public static void main(String args[]) {
+    public static void main(String args[]) {
 
        
         try {
@@ -116,8 +120,9 @@ public class Principal extends javax.swing.JFrame {
                 new Principal().setVisible(true);
             }
         });
-    }*/
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private vista.CajaView cajaView1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;

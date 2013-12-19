@@ -501,6 +501,7 @@ public class VentasView extends javax.swing.JPanel {
             }
             apedv=new AddPedidoView();
             apedv.setEmpleado(empleado);
+            apedv.setNumPedLabel(String.valueOf(idePed));
             apedv.isUpdate=true;
             ArrayList<ItemPedido> listitems=pedidologic.getDetallePedido(idePed);
             apedv.actualizarTablaPedido(listitems,pedidoa.getNomPed(),String.valueOf(pedidoa.getNuroMesPed()));
@@ -533,13 +534,14 @@ public class VentasView extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model=(DefaultTableModel)pedidoTable.getModel();
         int row=model.getRowCount();
+        ArrayList<Integer> filasParaEliminar=new ArrayList<Integer>();
         boolean error=false;
-        System.out.println("nu filas: "+ row);
         for(int i=0;i<row;i++){
             String estado=(String) model.getValueAt(i,3);
             if((Boolean)model.getValueAt(i,0) && estado.equals("pendiente")){
                 int idePed=(Integer)model.getValueAt(i,1);
                 pedidologic.eliminarPedido(idePed);
+                filasParaEliminar.add(idePed);
             }
             else if((Boolean)model.getValueAt(i,0) && estado.equals("realizado")){
                 error=true;
@@ -547,11 +549,24 @@ public class VentasView extends javax.swing.JPanel {
         }
         if(error)JOptionPane.showMessageDialog(null,"no se puede eliminar pedido realizado");
         else{
-            
-            SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd");
-            ArrayList<Pedido> listped=pedidologic.getPedidoFecha(sdf.format(dateChooser.getDate()));
-            limpiarTabla();
-            actualizarTabla(listped);
+            try{
+                int size=filasParaEliminar.size();
+                for(int i=0;i<size;i++){
+                    model=(DefaultTableModel)pedidoTable.getModel();
+                    boolean borrar=false;
+                    int j=0;
+                    while(!borrar){
+                        if((Integer)model.getValueAt(j,1)==filasParaEliminar.get(i)){
+                            borrar=true;
+                            model.removeRow(j);
+                        }
+                        j++;
+                    }
+                }
+                JOptionPane.showMessageDialog(null,"Se elimino correctamente el pedido");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error al actualizar la tabla");
+            }
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 

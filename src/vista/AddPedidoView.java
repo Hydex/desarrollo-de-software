@@ -454,31 +454,55 @@ public class AddPedidoView extends javax.swing.JPanel {
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
-        presionButtonSave=true;
         if(!isUpdate){
-            java.util.Date dt = new java.util.Date();
-            java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String currentTime = sdf.format(dt);
-            Pedido pedido=new Pedido(clienteText.getText(),Integer.parseInt(editMesa.getText()),
-                    Integer.parseInt(codUserLabel.getText()),0,currentTime);
-            System.out.println("mierdadadsdfsafsd");
-            pedidologic.setPedido(pedido);  
-            pedidologic.guardarBD();
-            pedido=null;
-            pedido=pedidologic.getUltimoPedido();
-            System.out.println("Este es el id de empleado: "+pedido.getIdeEmp());
-            ArrayList<ItemPedido> itemsp=getListItemPedidos();
-            for(ItemPedido item: itemsp){
-                pedidologic.insertarDetalle(pedido.getIdeped(), item);
+            try{
+                presionButtonSave=true;
+                java.util.Date dt = new java.util.Date();
+                java.text.SimpleDateFormat sdf =new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String currentTime = sdf.format(dt);
+                Pedido pedido=new Pedido(clienteText.getText(),Integer.parseInt(editMesa.getText()),
+                        Integer.parseInt(codUserLabel.getText()),0,currentTime);
+                pedidologic.setPedido(pedido);  
+                pedidologic.guardarBD();
+                pedido=null;
+                pedido=pedidologic.getUltimoPedido();
+                System.out.println("Este es el id de empleado: "+pedido.getIdeEmp());
+                ArrayList<ItemPedido> itemsp=getListItemPedidos();
+                for(ItemPedido item: itemsp){
+                    pedidologic.insertarDetalle(pedido.getIdeped(), item);
+                }
+                JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
+                frame.getWindowListeners()[0].windowClosing(null);//
+                JOptionPane.showMessageDialog(null,"Se Guardo Correctamente");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error al guardar, fijese que los campos esten llenos");
             }
-            JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
-            frame.getWindowListeners()[0].windowClosing(null);//
         }
         else{
             //eliminar todos los registros en la tabla y volverlos a insertar mas los nuevos;
+            try{
+                presionButtonSave=false;
+                CustomTableModel model =(CustomTableModel) pedidoTable.getModel();
+                int numFilas=model.getRowCount();
+                for(int i=0;i<numFilas;i++){
+                    int itemProd=(Integer)model.getValueAt(i,0);
+                    ItemPedido item=pedidologic.getDetallePedidoItem(Integer.parseInt(numPedLabel.getText()),itemProd);
+                    if(item==null){//insercion
+                        pedidologic.insertarDetalle(Integer.parseInt(numPedLabel.getText()),this.getItemPedidoActual(i)); 
+                    }
+                    else{//actualizacion
+                        pedidologic.actualizarDetalleDelPedido(Integer.parseInt(numPedLabel.getText()),getItemPedidoActual(i));
+                    }
+                }
+                JOptionPane.showMessageDialog(null,"Se Actualizo correctamente");
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error al Actualizar Datos");
+            }
         }
     }//GEN-LAST:event_saveButtonActionPerformed
-
+    public void setNumPedLabel(String idePed){
+        numPedLabel.setText(idePed);
+    }
     private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
         // TODO add your handling code here:
        JFrame frame = (JFrame) SwingUtilities.getAncestorOfClass(JFrame.class, this);
@@ -492,8 +516,12 @@ public class AddPedidoView extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"debe seleccionar una tabla");
         }
         else{
-            CustomTableModel tablemodel=(CustomTableModel)pedidoTable.getModel();
-            
+            try{
+                CustomTableModel tablemodel=(CustomTableModel)pedidoTable.getModel();
+                tablemodel.removeRow(row);
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null,"Error al eliminar en tabla");
+            }
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
     public void actualizarElemento(){
@@ -536,6 +564,20 @@ public class AddPedidoView extends javax.swing.JPanel {
             listitem.add(item);
         }
         return listitem;
+    }
+    public ItemPedido getItemPedidoActual(int row){
+        ItemPedido item=null;
+        CustomTableModel model =(CustomTableModel) pedidoTable.getModel();
+        try{
+            item=new ItemPedido((Integer)model.getValueAt(row,0),(String)model.getValueAt(row,1),
+                    (Integer)model.getValueAt(row,2),(Double)model.getValueAt(row,3),(Double)model.getValueAt(row,4));
+            return item;
+        }
+        
+        catch(Exception e){
+            System.out.println(e.toString());
+            return item;
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
