@@ -7,6 +7,9 @@ package modelo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import pojo.Item;
 /**
  *
@@ -36,6 +39,39 @@ public class ItemLogic extends SistemaLogico{
             return listNames;
         }
     }
+    public ArrayList<Item> getAllItems(){
+        String sql="select* from Item i inner join TipoItem ti on i.ideTipItm=ti.ideTipItm";
+        ArrayList<Item> listItems=new ArrayList<Item>();            
+        this.bd.consulta(sql);
+        ResultSet rpta=this.bd.getRespuesta();
+        try{
+            while(rpta.next()){
+                Item item=new Item(rpta.getInt("ideItm"),rpta.getString("desTipItm"),
+                        rpta.getString("desItm"),rpta.getDouble("preItm"),rpta.getInt("idePro"),rpta.getDouble("dscItm"));
+                listItems.add(item);
+                
+            }
+            return listItems;
+        }catch(SQLException sqle){
+            System.out.println(sqle.toString());
+            return listItems;
+        }
+    }
+    public Item  getItemCod(String cod){
+        String sql="select* from Item i inner join TipoItem ti on i.ideTipItm=ti.ideTipItm where i.ideItm="+cod+";";
+        Item item=null;            
+        this.bd.consulta(sql);
+        ResultSet rpta=this.bd.getRespuesta();
+        try{
+            rpta.next();
+            item=new Item(rpta.getInt("ideItm"),rpta.getString("desTipItm"),
+                        rpta.getString("desItm"),rpta.getDouble("preItm"),rpta.getInt("idePro"),rpta.getDouble("dscItm"));
+            return item;
+        }catch(SQLException sqle){
+            System.out.println(sqle.toString());
+            return item;
+        }
+    }
     public ArrayList<String> getTiposItem(){
         String sql="select* from TipoItem where 1";
         ArrayList<String> listTipos=new ArrayList<String>();            
@@ -44,6 +80,23 @@ public class ItemLogic extends SistemaLogico{
         try{
             while(result.next()){
                 listTipos.add(result.getString("desTipItm"));
+            }
+            return listTipos;
+        }
+        catch(SQLException sqle){
+            System.out.println(sqle.toString());
+            return listTipos;
+        }
+        
+    }
+    public ArrayList<String> getTiposItemAll(){
+        String sql="select* from TipoItem where 1";
+        ArrayList<String> listTipos=new ArrayList<String>();            
+        this.bd.consulta(sql);
+        ResultSet result= bd.getRespuesta();
+        try{
+            while(result.next()){
+                listTipos.add(result.getString("ideTipItm")+" "+result.getString("desTipItm"));
             }
             return listTipos;
         }
@@ -136,6 +189,29 @@ public class ItemLogic extends SistemaLogico{
         }catch(SQLException sqle){
             System.out.println(sqle.toString());
             return listItems;
+        }
+    }
+    public String nextIdeItm(){
+        String sql="SHOW TABLE STATUS WHERE Name= 'Item'";
+        System.out.println("melas "+sql);
+        bd.consulta(sql);
+        ResultSet rs=bd.getRespuesta();
+        try {
+            rs.next();
+            String nextid = rs.getString("Auto_increment");
+            return nextid;
+        } catch (SQLException ex) {
+            Logger.getLogger(ItemLogic.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    public void insertItem(Item item){
+        String sql="insert into Item(ideTipItm,desItm,preItm) values("+item.getIdeTipItm()+
+                ",'"+item.getDesItm()+"',"+item.getPreItm()+");";
+        try{
+            bd.insertar(sql);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Error al insertar item en la BD");
         }
     }
 }

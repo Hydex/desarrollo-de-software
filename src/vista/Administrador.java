@@ -275,6 +275,7 @@ public class Administrador extends javax.swing.JPanel {
         Eliminar_TerminalBoton = new javax.swing.JButton();
         Desbloquear_TerminalBoton = new javax.swing.JButton();
         trabajadorView1 = new vista.TrabajadorView();
+        productosView1 = new vista.ProductosView();
 
         codigo_Empleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -829,7 +830,7 @@ public class Administrador extends javax.swing.JPanel {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Usuario", jPanel1);
@@ -940,11 +941,12 @@ public class Administrador extends javax.swing.JPanel {
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Terminales", jPanel2);
         jTabbedPane1.addTab("Empleados", trabajadorView1);
+        jTabbedPane1.addTab("Productos", productosView1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -954,7 +956,7 @@ public class Administrador extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1812,6 +1814,7 @@ private void goto_verificar(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_goto
     private javax.swing.JRadioButton oAutoGen1;
     private javax.swing.JRadioButton oPredeterminado;
     private javax.swing.JRadioButton oPredeterminado1;
+    private vista.ProductosView productosView1;
     private javax.swing.JButton registrarBoton;
     private javax.swing.JButton registrarBoton1;
     private javax.swing.JButton registrarBoton2;

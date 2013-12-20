@@ -14,13 +14,23 @@ public class Item {
     private String desItm;
     private double preItm;
     private int idePro;
-    
+    private double descuento;
+    private String nomIdeItm;
+    private String nomProveedor;
     public Item(){}
 
     public Item(int ideItm, String desItm, double preItm) {
         this.ideItm = ideItm;
         this.desItm = desItm;
         this.preItm = preItm;
+    }
+    public Item(int ideItm, String nomIdeItm, String desItm, double preItm,int ideProv,double descuento) {
+        this.ideItm = ideItm;
+        this.nomIdeItm = nomIdeItm;
+        this.desItm = desItm;
+        this.preItm = preItm;
+        this.idePro = ideProv;
+        this.descuento=descuento;
     }
     
     public Item(int ideItm, int ideTipItm, String desItm, double preItm) {
@@ -69,6 +79,30 @@ public class Item {
 
     public void setIdePro(int idePro) {
         this.idePro = idePro;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
+    public String getNomIdeItm() {
+        return nomIdeItm;
+    }
+
+    public void setNomIdeItm(String nomIdeItm) {
+        this.nomIdeItm = nomIdeItm;
+    }
+
+    public String getNomProveedor() {
+        return nomProveedor;
+    }
+
+    public void setNomProveedor(String nomProveedor) {
+        this.nomProveedor = nomProveedor;
     }
     
 }

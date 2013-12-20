@@ -34,7 +34,7 @@ public class AddPedidoView extends javax.swing.JPanel {
     /**
      * Creates new form AddPedidoView
      */
- JFrame frame;
+    JFrame frame;
     AddProductView apv;
     PedidoLogic pedidologic;
     Empleado empleado =new Empleado(1);
