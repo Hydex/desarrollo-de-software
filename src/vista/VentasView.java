@@ -90,8 +90,9 @@ public class VentasView extends javax.swing.JPanel {
 
         optionPanel.setName("optionPanel"); // NOI18N
 
+        addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         addButton.setText("Agregar");
-        addButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        addButton.setBorder(null);
         addButton.setName("addButton"); // NOI18N
         addButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -159,8 +160,7 @@ public class VentasView extends javax.swing.JPanel {
         optionPanelLayout.setVerticalGroup(
             optionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(optionPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -368,9 +368,9 @@ public class VentasView extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     
     private void iniButtons(){
-        ImageIcon[] iconos={new ImageIcon("icons/add.jpeg"),
-            new ImageIcon("icons/delete.jpeg"),new ImageIcon("icons/edit.jpeg"),
-            new ImageIcon("icons/sell.jpeg")};
+        ImageIcon[] iconos={new ImageIcon("src/img/add.jpeg"),
+            new ImageIcon("src/img/delete.jpeg"),new ImageIcon("src/img/edit.jpeg"),
+            new ImageIcon("src/img/sell.jpeg")};
         addButton.setIcon(iconos[0]);
         deleteButton.setIcon(iconos[1]);
         editButton.setIcon(iconos[2]);
@@ -536,16 +536,24 @@ public class VentasView extends javax.swing.JPanel {
         int row=model.getRowCount();
         ArrayList<Integer> filasParaEliminar=new ArrayList<Integer>();
         boolean error=false;
+        
+        int cont=0;
         for(int i=0;i<row;i++){
             String estado=(String) model.getValueAt(i,3);
             if((Boolean)model.getValueAt(i,0) && estado.equals("pendiente")){
                 int idePed=(Integer)model.getValueAt(i,1);
                 pedidologic.eliminarPedido(idePed);
                 filasParaEliminar.add(idePed);
+                cont++;
             }
             else if((Boolean)model.getValueAt(i,0) && estado.equals("realizado")){
                 error=true;
+                cont++;
             }
+        }
+        if(cont==0){
+            JOptionPane.showMessageDialog(null,"Debe Seleccionar una fila");
+            return;
         }
         if(error)JOptionPane.showMessageDialog(null,"no se puede eliminar pedido realizado");
         else{
